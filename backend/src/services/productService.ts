@@ -1,5 +1,6 @@
 import { ResultSetHeader } from 'mysql2';
 import { pool } from '../config/database';
+import { HttpError } from '../middleware/errorHandler';
 import { Product } from '../types';
 
 export interface CreateProductInput {
