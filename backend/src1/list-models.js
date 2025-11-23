@@ -33,11 +33,12 @@ async function listModels() {
     // Test common model names
     console.log('\n🧪 Testing common model names:\n');
     const testModels = [
-      'gemini-1.5-flash',
-      'gemini-1.5-pro',
-      'gemini-pro',
+      'gemini-2.5-flash',
+      'gemini-2.0-flash-exp',
       'gemini-1.5-flash-latest',
-      'gemini-1.5-pro-latest'
+      'gemini-1.5-pro-latest',
+      'gemini-1.5-flash',
+      'gemini-1.5-pro'
     ];
     
     for (const modelName of testModels) {
@@ -57,12 +58,12 @@ async function listModels() {
     
     // Fallback: test models directly
     const testModels = [
-      'gemini-1.5-flash',
-      'gemini-1.5-pro',
-      'gemini-pro',
+      'gemini-2.5-flash',
+      'gemini-2.0-flash-exp',
       'gemini-1.5-flash-latest',
       'gemini-1.5-pro-latest',
-      'gemini-2.0-flash-exp'
+      'gemini-1.5-flash',
+      'gemini-1.5-pro'
     ];
     
     for (const modelName of testModels) {

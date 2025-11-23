@@ -19,8 +19,11 @@ console.log(`API Key: ${apiKey.substring(0, 20)}...\n`);
 
 const genAI = new GoogleGenerativeAI(apiKey);
 
-// Free tier models only (in order of likelihood to work)
+// Free tier friendly models only (in order of likelihood to work). We still
+// surface gemini-2.5-flash first because it's the preferred default when
+// available, even though it may require paid access.
 const freeTierModels = [
+  'gemini-2.5-flash',        // Preferred default (may require paid access)
   'gemini-1.5-flash',        // Most common free tier model
   'gemini-1.5-pro',          // Also available on free tier
   'gemini-1.5-flash-latest', // Latest version

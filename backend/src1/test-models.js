@@ -16,14 +16,14 @@ if (!apiKey) {
 
 const genAI = new GoogleGenerativeAI(apiKey);
 
-// Test different model names
+// Test different model names (current, supported variants only)
 const modelsToTest = [
-  'gemini-pro',
-  'gemini-1.5-pro',
+  'gemini-2.5-flash',
+  'gemini-2.0-flash-exp',
+  'gemini-1.5-flash-latest',
+  'gemini-1.5-pro-latest',
   'gemini-1.5-flash',
-  'models/gemini-pro',
-  'models/gemini-1.5-pro',
-  'models/gemini-1.5-flash'
+  'gemini-1.5-pro'
 ];
 
 async function testModel(modelName) {

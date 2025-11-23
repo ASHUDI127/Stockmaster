@@ -19,31 +19,15 @@ console.log(`API Key: ${apiKey.substring(0, 20)}...\n`);
 
 const genAI = new GoogleGenerativeAI(apiKey);
 
-// Comprehensive list of model names to test
+// Comprehensive list of model names to test (focused on supported, non-deprecated
+// names so we don't waste retries on 404s)
 const modelsToTest = [
-  // Latest versions
+  'gemini-2.5-flash',
+  'gemini-2.0-flash-exp',
   'gemini-1.5-flash-latest',
   'gemini-1.5-pro-latest',
-  'gemini-1.5-flash-001',
-  'gemini-1.5-pro-001',
-  
-  // Standard versions
   'gemini-1.5-flash',
-  'gemini-1.5-pro',
-  'gemini-pro',
-  
-  // With models/ prefix
-  'models/gemini-1.5-flash-latest',
-  'models/gemini-1.5-pro-latest',
-  'models/gemini-1.5-flash',
-  'models/gemini-1.5-pro',
-  'models/gemini-pro',
-  
-  // Versioned
-  'gemini-pro-v1',
-  'gemini-1.0-pro',
-  'gemini-1.5-flash-002',
-  'gemini-1.5-pro-002',
+  'gemini-1.5-pro'
 ];
 
 async function testModel(modelName) {
