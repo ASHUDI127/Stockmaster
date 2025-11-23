@@ -97,6 +97,9 @@ function ensureUserScope(sql, userId) {
 }
 
 export async function generateSQL(question, userId, retries = 2) {
+  // Try configured model first, then fallbacks (dedupe to avoid double tries)
+  const modelsToTry = [config.gemini.model, ...MODEL_FALLBACKS]
+    .filter((model, index, arr) => arr.indexOf(model) === index);
   let lastError = null;
 
   for (let attempt = 0; attempt <= retries; attempt++) {
