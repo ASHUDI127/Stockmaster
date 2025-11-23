@@ -6,7 +6,7 @@ export const config = {
   gemini: {
     // Fallback to the provided key so local runs work even if .env is missing
     apiKey: process.env.GEMINI_API_KEY || 'AIzaSyCa5xfG486cy_rSOdLU_BVNJfK_EQDjc_o',
-    model: 'gemini-2.5-flash'
+    model: process.env.GEMINI_MODEL || 'gemini-2.5-flash'
   },
   db: {
     host: process.env.DB_HOST || 'localhost',

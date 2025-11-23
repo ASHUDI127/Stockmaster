@@ -8,14 +8,15 @@ import { systemPrompt } from './schema.js';
 const genAI = new GoogleGenerativeAI(config.gemini.apiKey);
 
 // List of model names to try (including gemini-2.5-flash and fallbacks)
+// Keep this focused on currently supported model names to avoid 404s that
+// short-circuit the retry loop.
 const MODEL_FALLBACKS = [
   'gemini-2.5-flash',
   'gemini-2.0-flash-exp',
   'gemini-1.5-flash-latest',
   'gemini-1.5-pro-latest',
   'gemini-1.5-flash',
-  'gemini-1.5-pro',
-  'gemini-pro'
+  'gemini-1.5-pro'
 ];
 
 // Validate that response is proper SQL
@@ -105,8 +106,9 @@ function ensureUserScope(sql, userId) {
 }
 
 export async function generateSQL(question, userId, retries = 2) {
-  // Try configured model first, then fallbacks
-  const modelsToTry = [config.gemini.model, ...MODEL_FALLBACKS.filter(m => m !== config.gemini.model)];
+  // Try configured model first, then fallbacks (dedupe to avoid double tries)
+  const modelsToTry = [config.gemini.model, ...MODEL_FALLBACKS]
+    .filter((model, index, arr) => arr.indexOf(model) === index);
   let lastError = null;
   
   // Try each model
