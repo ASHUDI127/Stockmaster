@@ -2,6 +2,7 @@ import { useState, useEffect, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Sparkles, Send, Copy, Check, Database, Zap, Terminal, Activity } from "lucide-react";
 import { toast } from "sonner";
+import { useAuth } from "../contexts/AuthContext";
 
 interface QueryResult {
   success: boolean;
@@ -15,6 +16,7 @@ interface QueryResult {
 }
 
 const API_BASE_URL = "https://satisfied-prosperity-production.up.railway.app";
+const DEFAULT_USER_ID = 1;
 
 const QuantumInventory = () => {
   const [question, setQuestion] = useState("");
@@ -23,6 +25,7 @@ const QuantumInventory = () => {
   const [copied, setCopied] = useState(false);
   const [connectionStatus, setConnectionStatus] = useState<"connected" | "disconnected" | "checking">("checking");
   const inputRef = useRef<HTMLInputElement>(null);
+  const { user } = useAuth();
 
   const exampleQuestions = [
     "List all warehouses",
@@ -51,6 +54,8 @@ const QuantumInventory = () => {
     e?.preventDefault();
     if (!question.trim()) return;
 
+    const userId = user?.id ?? DEFAULT_USER_ID;
+
     setLoading(true);
     setResult(null);
 
@@ -58,7 +63,7 @@ const QuantumInventory = () => {
       const response = await fetch(`${API_BASE_URL}/api/query`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ question }),
+        body: JSON.stringify({ question, userId }),
       });
 
       const data = await response.json();
